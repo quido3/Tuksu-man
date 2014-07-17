@@ -7,7 +7,6 @@ public class EnemyScript : MonoBehaviour
 
     public GameObject tuksu;
     PlayerScript tuksuScript;
-
     public WallSpawner wallSpawner;
 
     private Enums.Direction dir = Enums.Direction.None;
