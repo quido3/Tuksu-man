@@ -8,6 +8,8 @@ public class EnemyScript : MonoBehaviour
     public GameObject tuksu;
     PlayerScript tuksuScript;
 
+    public WallSpawner wallSpawner;
+
     private Enums.Direction dir = Enums.Direction.None;
     public int startSpeed = 5;
     private float speed = 5;
@@ -392,10 +394,10 @@ public class EnemyScript : MonoBehaviour
             if (aiEnabled)
             {
                 //First thing to select random direction
-                if (dir == Enums.Direction.None)
+                /*if (dir == Enums.Direction.None)
                 {
                     dir = Enums.Direction.Up;
-                }
+                }*/
                 move(dir);
             }
         }
@@ -409,7 +411,6 @@ public class EnemyScript : MonoBehaviour
     {
         int points = tuksuScript.getPoints();
         speed = startSpeed + (0.1f * (int)(points / 250));
-        print("speed = " + speed);
     }
 
     public void reset()
@@ -486,5 +487,11 @@ public class EnemyScript : MonoBehaviour
                 break;
         }
         transform.rigidbody2D.MovePosition(transform.position + move * speed * Time.deltaTime);
+    }
+
+    public void setSpawnSpot(Vector2 spot)
+    {
+        this.spawnSpot = spot;
+        this.disable();
     }
 }

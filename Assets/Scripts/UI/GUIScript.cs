@@ -24,6 +24,11 @@ public class GUIScript : MonoBehaviour
         timeText.GetComponent<TextMesh>().text = "" + (int)time;
     }
 
+    public void setBallCount(int count)
+    {
+        this.balls = count;
+    }
+
     public int getPoints()
     {
         return points;

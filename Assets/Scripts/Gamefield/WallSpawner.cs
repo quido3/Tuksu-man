@@ -9,88 +9,103 @@ public class WallSpawner : MonoBehaviour
     public GameObject bBall;
     public GameObject ballParent;
     public GameObject crossRoad;
+    public GameObject spawnSpot;
     int gameWidth = 11, gameHeight = 13;
+    public PlayerScript tuksu;
+    public GUIScript gui;
     int[,] walls;
     List<int[,]> mapList = new List<int[,]>();
+
+    int ballCount = 0;
+
+    public List<EnemyScript> enemies = new List<EnemyScript>();
 
     // Use this for initialization
     void Start()
     {
-        walls = new int[13,11]{ {3,0,0,0,0,1,0,0,0,0,3},
+        walls = new int[13, 11]{    {3,0,0,0,0,1,0,0,0,0,3},
                                     {0,1,0,1,0,1,0,1,0,1,0},
                                     {0,0,0,0,0,0,0,0,0,0,0},
                                     {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
-                                    {0,1,1,0,1,3,1,0,1,1,0},
+                                    {0,0,1,0,1,1,1,0,1,0,0},
+                                    {0,1,1,0,0,3,0,0,1,1,0},
                                     {0,0,0,0,1,2,1,0,0,0,0},
                                     {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
+                                    {0,0,1,0,0,4,0,0,1,0,0},
                                     {0,1,1,1,0,1,0,1,1,1,0},
                                     {0,0,0,0,0,1,0,0,0,0,0},
                                     {0,1,1,0,1,1,1,0,1,1,0},
                                     {3,0,0,0,0,0,0,0,0,0,3}
                                     };
         mapList.Add(walls);
-        walls = new int[13, 11]{ {3,0,0,0,0,1,0,0,0,0,3},
+        walls = new int[13, 11]{    {3,0,0,0,1,2,1,0,0,0,3},
+                                    {0,1,1,0,0,3,0,0,1,1,0},
+                                    {0,1,0,0,1,0,1,0,0,1,0},
+                                    {0,1,0,1,1,0,1,1,0,1,0},
+                                    {0,0,0,0,0,0,0,0,0,0,0},
+                                    {1,1,1,0,1,1,1,0,1,1,1},
+                                    {0,0,0,0,0,4,0,0,0,0,0},
+                                    {0,1,1,1,0,1,0,1,1,1,0},
+                                    {0,0,0,1,0,1,0,1,0,0,0},
                                     {0,1,0,1,0,1,0,1,0,1,0},
                                     {0,0,0,0,0,0,0,0,0,0,0},
-                                    {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
-                                    {0,1,1,0,1,3,1,0,1,1,0},
-                                    {0,0,0,0,1,2,1,0,0,0,0},
-                                    {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
                                     {0,1,1,1,0,1,0,1,1,1,0},
-                                    {0,0,0,0,0,1,0,0,0,0,0},
-                                    {0,1,1,0,1,1,1,0,1,1,0},
-                                    {3,0,0,0,0,0,0,0,0,0,3}
+                                    {3,0,0,0,0,1,0,0,0,0,3}
                                     };
         mapList.Add(walls);
-        walls = new int[13, 11]{ {3,0,0,0,0,1,0,0,0,0,3},
+        walls = new int[13, 11]{    {0,0,0,0,0,0,0,0,0,0,3},
+                                    {0,1,1,1,0,1,0,1,0,1,0},
+                                    {3,2,1,1,0,1,0,1,0,0,0},
+                                    {0,1,1,1,0,1,0,1,0,1,1},
+                                    {0,1,0,0,0,1,0,1,0,0,0},
+                                    {0,1,0,1,0,1,0,1,1,1,0},
+                                    {0,0,0,0,0,0,0,0,0,4,0},
+                                    {0,1,0,1,1,0,1,1,1,1,0},
+                                    {0,1,0,1,0,0,1,0,0,0,0},
+                                    {0,1,0,0,0,1,1,3,1,1,0},
+                                    {0,1,0,1,0,0,1,0,0,0,0},
+                                    {0,1,0,1,1,0,1,1,1,1,0},
+                                    {3,0,0,0,0,0,0,0,0,0,0}
+                                    };
+        mapList.Add(walls);
+        walls = new int[13, 11]{    {0,0,0,1,0,4,0,1,0,0,0},
                                     {0,1,0,1,0,1,0,1,0,1,0},
-                                    {0,0,0,0,0,0,0,0,0,0,0},
-                                    {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
-                                    {0,1,1,0,1,3,1,0,1,1,0},
-                                    {0,0,0,0,1,2,1,0,0,0,0},
-                                    {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
-                                    {0,1,1,1,0,1,0,1,1,1,0},
-                                    {0,0,0,0,0,1,0,0,0,0,0},
-                                    {0,1,1,0,1,1,1,0,1,1,0},
-                                    {3,0,0,0,0,0,0,0,0,0,3}
-                                    };
-        mapList.Add(walls);
-        walls = new int[13, 11]{ {3,0,0,0,0,1,0,0,0,0,3},
                                     {0,1,0,1,0,1,0,1,0,1,0},
+                                    {0,0,0,0,0,1,0,0,0,0,0},
+                                    {0,1,1,1,0,1,0,1,1,1,0},
                                     {0,0,0,0,0,0,0,0,0,0,0},
-                                    {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
-                                    {0,1,1,0,1,3,1,0,1,1,0},
-                                    {0,0,0,0,1,2,1,0,0,0,0},
-                                    {1,0,1,0,1,1,1,0,1,0,1},
-                                    {0,0,1,0,0,0,0,0,1,0,0},
+                                    {1,0,1,1,1,1,1,1,1,0,1},
+                                    {0,0,0,0,0,1,0,0,0,0,0},
                                     {0,1,1,1,0,1,0,1,1,1,0},
                                     {0,0,0,0,0,1,0,0,0,0,0},
-                                    {0,1,1,0,1,1,1,0,1,1,0},
-                                    {3,0,0,0,0,0,0,0,0,0,3}
+                                    {0,1,0,1,0,1,0,1,0,1,0},
+                                    {0,1,0,1,0,3,0,1,0,1,0},
+                                    {0,0,0,1,1,2,1,1,0,0,0}
                                     };
         mapList.Add(walls);
-
-        int rand = Random.Range(0,3);
-
-        switch(rand){
-
-        }
-
-
-
+        int rand = Random.Range(0, 4);
+        walls = mapList[rand];
 
         for (int y = 0; y < gameHeight; y++)
         {
             for (int x = 0; x < gameWidth; x++)
             {
-                if (walls[y, x] == 1)
+                if (walls[y, x] == 2)
+                {
+                    foreach (EnemyScript enemy in enemies)
+                    {
+                        enemy.setSpawnSpot(new Vector2(x + 0.5f, gameHeight - y - 0.5f));
+                    }
+                    spawnCrossroad(x, y);
+                    GameObject tile = (GameObject)Instantiate(spawnSpot, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
+                    tile.transform.parent = this.transform;
+                }
+                else if (walls[y, x] == 4)
+                {
+                    tuksu.setSpawn(new Vector2(x + 0.5f, gameHeight - y - 0.5f));
+                    spawnCrossroad(x, y);
+                }
+                else if (walls[y, x] == 1)
                 {
 
                     GameObject tile = (GameObject)Instantiate(wallPiece, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
@@ -99,53 +114,87 @@ public class WallSpawner : MonoBehaviour
                 else if (walls[y, x] == 3)
                 {
                     spawnCrossroad(x, y);
-                    GameObject ball = (GameObject)Instantiate(bBall, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
-                    ball.transform.parent = ballParent.transform;
+                    spawnBall(true, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1));
+
                 }
                 else
                 {
                     spawnCrossroad(x, y);
-                    GameObject ball = (GameObject)Instantiate(sBall, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
-                    ball.transform.parent = ballParent.transform;
+                    spawnBall(false, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1));
                 }
             }
+        }
+
+        gui.setBallCount(ballCount);
+
+    }
+
+    void spawnBall(bool big, Vector3 spot)
+    {
+        ballCount++;
+        if (big)
+        {
+            GameObject ball = (GameObject)Instantiate(bBall, spot, Quaternion.identity);
+            ball.transform.parent = ballParent.transform;
+        }
+        else
+        {
+            GameObject ball = (GameObject)Instantiate(sBall, spot, Quaternion.identity);
+            ball.transform.parent = ballParent.transform;
         }
     }
 
     void spawnCrossroad(int x, int y)
     {
         List<Enums.Direction> dirs = new List<Enums.Direction>();
+        bool closeSpawn = false;
 
         if (x - 1 >= 0)
         {
-            if (walls[y, x - 1] == 0 || walls[y, x - 1] == 3)
+            if (walls[y, x - 1] == 2)
+            {
+                closeSpawn = true;
+            }
+            if (walls[y, x - 1] == 0 || walls[y, x - 1] == 3 || walls[y, x - 1] == 4)
             {
                 dirs.Add(Enums.Direction.Left);
             }
         }
         if (x + 1 < gameWidth)
         {
-            if (walls[y, x + 1] == 0 || walls[y, x + 1] == 3)
+            if (walls[y, x + 1] == 2)
+            {
+                closeSpawn = true;
+            }
+            if (walls[y, x + 1] == 0 || walls[y, x + 1] == 3 || walls[y, x + 1] == 4)
             {
                 dirs.Add(Enums.Direction.Right);
             }
         }
         if (y - 1 >= 0)
         {
-            if (walls[y - 1, x] == 0 || walls[y - 1, x] == 3)
+            if (walls[y - 1, x] == 2)
+            {
+                closeSpawn = true;
+            }
+            if (walls[y - 1, x] == 0 || walls[y - 1, x] == 3 || walls[y - 1, x] == 4)
             {
                 dirs.Add(Enums.Direction.Up);
             }
         }
         if (y + 1 < gameHeight)
         {
-            if (walls[y + 1, x] == 0 || walls[y + 1, x] == 3)
+            if (walls[y + 1, x] == 2)
+            {
+                closeSpawn = true;
+            }
+            if (walls[y + 1, x] == 0 || walls[y + 1, x] == 3 || walls[y + 1, x] == 4)
             {
                 dirs.Add(Enums.Direction.Down);
             }
         }
 
-        if (dirs.Count == 2)
+        if (dirs.Count == 2 && closeSpawn == false)
         {
             if (isOppositeDir(dirs[0], dirs[1]))
             {

@@ -40,8 +40,8 @@ public class PlayerScript : MonoBehaviour
                 trailRenderer.enabled = false;
             }
         }
-        checkTouch();
-        //setPendingDir();
+        //checkTouch();
+        setPendingDir();
         if (dir != pendingDir)
         {
             if (checkTurning(pendingDir))
@@ -57,43 +57,50 @@ public class PlayerScript : MonoBehaviour
         return dir;
     }
 
+    public void setSpawn(Vector2 spot)
+    {
+        spawnPoint = spot;
+        this.transform.position = spawnPoint;
+
+    }
+
     private void checkTouch()
     {
         if (Input.touchCount == 1)
         {
-        Touch touch = Input.GetTouch(0);
+            Touch touch = Input.GetTouch(0);
 
-        if (touch.phase == TouchPhase.Ended && touch.tapCount == 1)
-        {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-            //Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 pos = Camera.main.ScreenToWorldPoint(touch.position);
-            Vector2 dist = (Vector2)this.transform.position - pos;
-            if (Mathf.Abs(dist.x) > Mathf.Abs(dist.y))
+            if (touch.phase == TouchPhase.Ended && touch.tapCount == 1)
             {
-                if (dist.x < 0)
+                //if (Input.GetMouseButtonDown(0))
+                //{
+                //Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 pos = Camera.main.ScreenToWorldPoint(touch.position);
+                Vector2 dist = (Vector2)this.transform.position - pos;
+                if (Mathf.Abs(dist.x) > Mathf.Abs(dist.y))
                 {
-                    pendingDir = Enums.Direction.Right;
+                    if (dist.x < 0)
+                    {
+                        pendingDir = Enums.Direction.Right;
+                    }
+                    else
+                    {
+                        pendingDir = Enums.Direction.Left;
+                    }
                 }
                 else
                 {
-                    pendingDir = Enums.Direction.Left;
+                    if (dist.y < 0)
+                    {
+                        pendingDir = Enums.Direction.Up;
+                    }
+                    else
+                    {
+                        pendingDir = Enums.Direction.Down;
+                    }
                 }
-            }
-            else
-            {
-                if (dist.y < 0)
-                {
-                    pendingDir = Enums.Direction.Up;
-                }
-                else
-                {
-                    pendingDir = Enums.Direction.Down;
-                }
-            }
 
-        }
+            }
         }
 
     }
