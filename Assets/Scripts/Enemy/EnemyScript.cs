@@ -7,7 +7,6 @@ public class EnemyScript : MonoBehaviour
 
     public GameObject tuksu;
     PlayerScript tuksuScript;
-    public WallSpawner wallSpawner;
 
     private Enums.Direction dir = Enums.Direction.None;
     public int startSpeed = 5;
@@ -16,7 +15,7 @@ public class EnemyScript : MonoBehaviour
     public float enableTime = 0;
     private float enableTimer = 0;
 
-    private Vector2 spawnSpot = new Vector2(5.5f, 6.5f);
+    private Vector3 spawnSpot = new Vector3(5.5f, 6.5f, -2);
 
     Vector2 prevTurnSpot = new Vector2(0, 0);
 
@@ -488,7 +487,7 @@ public class EnemyScript : MonoBehaviour
         transform.rigidbody2D.MovePosition(transform.position + move * speed * Time.deltaTime);
     }
 
-    public void setSpawnSpot(Vector2 spot)
+    public void setSpawnSpot(Vector3 spot)
     {
         this.spawnSpot = spot;
         this.disable();

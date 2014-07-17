@@ -19,7 +19,7 @@ public class PlayerScript : MonoBehaviour
 
     public bool animate;
 
-    private Vector2 spawnPoint = new Vector2(5.5f, 4.5f);
+    private Vector3 spawnPoint = new Vector3(5.5f, 4.5f, -1);
 
     // Use this for initialization
     void Start()
@@ -57,11 +57,11 @@ public class PlayerScript : MonoBehaviour
         return dir;
     }
 
-    public void setSpawn(Vector2 spot)
+    public void setSpawn(Vector3 spot)
     {
         spawnPoint = spot;
         this.transform.position = spawnPoint;
-
+        print(spot + " , " + this.transform.position);
     }
 
     private void checkTouch()
@@ -352,12 +352,17 @@ public class PlayerScript : MonoBehaviour
         }
         else if (other.gameObject.name == "bBall(Clone)")
         {
-
             PointBallScript ballScript = other.gameObject.GetComponent<PointBallScript>();
             ballScript.disable();
             addPoints(25);
             gui.ballEaten();
             superOn(5);
+        }
+        else if (other.gameObject.name == "Lingonberry(Clone)")
+        {
+            Destroy(other.gameObject);
+            addPoints(200);
+            gui.addLife();
         }
     }
 

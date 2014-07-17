@@ -4,21 +4,26 @@ using System.Collections.Generic;
 
 public class WallSpawner : MonoBehaviour
 {
-    public GameObject wallPiece;
     public GameObject sBall;
     public GameObject bBall;
-    public GameObject ballParent;
     public GameObject crossRoad;
     public GameObject spawnSpot;
-    int gameWidth = 11, gameHeight = 13;
+
+    public List<GameObject> wallPieces = new List<GameObject>();
+
+    public GameObject ballParent;
+    public GameObject crossroadParent;
+    public GameObject spawnParent;
+
     public PlayerScript tuksu;
     public GUIScript gui;
+    public List<EnemyScript> enemies = new List<EnemyScript>();
+
+    int gameWidth = 11, gameHeight = 13;
+
     int[,] walls;
     List<int[,]> mapList = new List<int[,]>();
-
     int ballCount = 0;
-
-    public List<EnemyScript> enemies = new List<EnemyScript>();
 
     // Use this for initialization
     void Start()
@@ -94,7 +99,7 @@ public class WallSpawner : MonoBehaviour
                 {
                     foreach (EnemyScript enemy in enemies)
                     {
-                        enemy.setSpawnSpot(new Vector2(x + 0.5f, gameHeight - y - 0.5f));
+                        enemy.setSpawnSpot(new Vector3(x + 0.5f, gameHeight - y - 0.5f, -2));
                     }
                     spawnCrossroad(x, y);
                     GameObject tile = (GameObject)Instantiate(spawnSpot, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
@@ -102,13 +107,13 @@ public class WallSpawner : MonoBehaviour
                 }
                 else if (walls[y, x] == 4)
                 {
-                    tuksu.setSpawn(new Vector2(x + 0.5f, gameHeight - y - 0.5f));
+                    tuksu.setSpawn(new Vector3(x + 0.5f, gameHeight - y - 0.5f, -2));
                     spawnCrossroad(x, y);
                 }
                 else if (walls[y, x] == 1)
                 {
-
-                    GameObject tile = (GameObject)Instantiate(wallPiece, new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
+                    int r = Random.Range(0, wallPieces.Count);
+                    GameObject tile = (GameObject)Instantiate(wallPieces[r], new Vector3(x + 0.5f, gameHeight - y - 0.5f, -1), Quaternion.identity);
                     tile.transform.parent = this.transform;
                 }
                 else if (walls[y, x] == 3)
@@ -212,7 +217,7 @@ public class WallSpawner : MonoBehaviour
                 script.addTurn(dir);
             }
 
-            turn.transform.parent = ballParent.transform;
+            turn.transform.parent = crossroadParent.transform;
         }
     }
 
@@ -246,6 +251,11 @@ public class WallSpawner : MonoBehaviour
                 break;
         }
         return false;
+    }
+
+    public int[,] getMap()
+    {
+        return this.walls;
     }
 
 }

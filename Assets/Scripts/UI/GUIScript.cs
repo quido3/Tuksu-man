@@ -51,21 +51,37 @@ public class GUIScript : MonoBehaviour
 
     public void deductLife()
     {
-        if (heart3 != null)
+        if (heart3.GetComponent<SpriteRenderer>().enabled == true)
         {
-            Destroy(heart3);
+            heart3.GetComponent<SpriteRenderer>().enabled = false;
         }
-        else if (heart2 != null)
+        else if (heart2.GetComponent<SpriteRenderer>().enabled == true)
         {
-            Destroy(heart2);
+            heart2.GetComponent<SpriteRenderer>().enabled = false;
         }
-        else if (heart1 != null)
+        else if (heart1.GetComponent<SpriteRenderer>().enabled == true)
         {
-            Destroy(heart1);
+            heart1.GetComponent<SpriteRenderer>().enabled = false;
         }
         else
         {
             endGame();
+        }
+    }
+
+    public void addLife()
+    {
+        if (heart1.GetComponent<SpriteRenderer>().enabled == false)
+        {
+            heart1.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else if (heart2.GetComponent<SpriteRenderer>().enabled == false)
+        {
+            heart2.GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else if (heart3.GetComponent<SpriteRenderer>().enabled == false)
+        {
+            heart3.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 
