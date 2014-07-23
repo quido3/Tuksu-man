@@ -1,6 +1,8 @@
 fileFormatVersion: 2
 guid: 2802ce705d328b84b9a13ecce9cc8fdd
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: pallo2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

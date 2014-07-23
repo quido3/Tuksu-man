@@ -19,6 +19,8 @@ public class PlayerScript : MonoBehaviour
 
     public bool animate;
 
+    public float pendingTimer = 0;
+
     private Vector3 spawnPoint = new Vector3(5.5f, 4.5f, -1);
 
     // Use this for initialization
@@ -42,12 +44,25 @@ public class PlayerScript : MonoBehaviour
         }
         //checkTouch();
         setPendingDir();
+
+
+
         if (dir != pendingDir)
         {
-            if (checkTurning(pendingDir))
+            pendingTimer -= Time.deltaTime;
+            print(Time.deltaTime);
+            if (pendingTimer > 0)
             {
-                dir = pendingDir;
+                if (checkTurning(pendingDir))
+                {
+                    dir = pendingDir;
+                }
             }
+            else
+            {
+                pendingDir = Enums.Direction.None;
+            }
+
         }
         move(dir);
     }
@@ -99,7 +114,7 @@ public class PlayerScript : MonoBehaviour
                         pendingDir = Enums.Direction.Down;
                     }
                 }
-
+                pendingTimer = 1f;
             }
         }
 
@@ -204,7 +219,9 @@ public class PlayerScript : MonoBehaviour
                     pendingDir = Enums.Direction.Down;
                 }
             }
+            pendingTimer = 1f;
         }
+
     }
 
     void move(Enums.Direction dir)
