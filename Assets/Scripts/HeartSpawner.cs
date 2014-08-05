@@ -55,7 +55,7 @@ public class HeartSpawner : MonoBehaviour
             {
                 if (!closeToPlayer())
                 {
-                    GameObject berry = (GameObject)Instantiate(lingonberry, new Vector3(randX + 0.5f, mapHeight - randY - 0.5f, -1), Quaternion.identity);
+                    GameObject berry = (GameObject)Instantiate(lingonberry, new Vector3(randX + 0.5f, mapHeight - randY - 0.5f, -3), Quaternion.identity);
                     berry.transform.parent = this.transform;
                     timer = 40;
                     spawned = true;

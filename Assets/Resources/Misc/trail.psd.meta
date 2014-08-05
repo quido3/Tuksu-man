@@ -3,6 +3,7 @@ guid: ba3b0b4441106b04f9fde4cfa62eff35
 TextureImporter:
   fileIDToRecycleName:
     21300000: trail
+    21300002: Trail
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

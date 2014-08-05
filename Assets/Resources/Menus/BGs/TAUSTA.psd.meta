@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 84e3a191c82e5e44ca3ce5dbfcd726bf
+guid: e35bb30e1ca7cf146b0aae16dee88de9
 TextureImporter:
   fileIDToRecycleName:
-    21300000: StartScreen
+    21300000: TAUSTA
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

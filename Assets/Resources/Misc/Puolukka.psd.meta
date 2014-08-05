@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 571b8c664b27d814c8782e4b1f49c43b
+guid: ed6c796beaab2e04397903591afa00a6
 TextureImporter:
   fileIDToRecycleName:
-    21300000: scoreBtn
+    21300000: Puolukka
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -26,9 +26,9 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50

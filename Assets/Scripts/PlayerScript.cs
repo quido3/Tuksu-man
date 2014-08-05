@@ -375,7 +375,7 @@ public class PlayerScript : MonoBehaviour
             gui.ballEaten();
             superOn(5);
         }
-        else if (other.gameObject.name == "Lingonberry(Clone)")
+        else if (other.gameObject.name == "LingonBerry(Clone)")
         {
             Destroy(other.gameObject);
             addPoints(200);
