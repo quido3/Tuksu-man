@@ -3,6 +3,9 @@ using System.Collections;
 
 public class SceneControllerScript : MonoBehaviour
 {
+
+    public AudioSource music;
+
     //Hopefully this fixes the 30fps on iPad
     // Use this for initialization
     void Start()
