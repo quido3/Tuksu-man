@@ -81,42 +81,34 @@ public class PlayerScript : MonoBehaviour
 
     private void checkTouch()
     {
-        if (Input.touchCount == 1)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Ended && touch.tapCount == 1)
-            {
+        
                 //if (Input.GetMouseButtonDown(0))
                 //{
                 //Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 pos = Camera.main.ScreenToWorldPoint(touch.position);
-                Vector2 dist = (Vector2)this.transform.position - pos;
-                if (Mathf.Abs(dist.x) > Mathf.Abs(dist.y))
-                {
-                    if (dist.x < 0)
+               
+                
+                if (Input.GetKeyDown("right"))
                     {
                         pendingDir = Enums.Direction.Right;
                     }
-                    else
+				if (Input.GetKeyDown("left"))
                     {
                         pendingDir = Enums.Direction.Left;
                     }
-                }
-                else
-                {
-                    if (dist.y < 0)
+      
+                
+				if (Input.GetKeyDown("up"))
                     {
                         pendingDir = Enums.Direction.Up;
                     }
-                    else
+				if (Input.GetKeyDown("down"))
                     {
                         pendingDir = Enums.Direction.Down;
                     }
-                }
+                
                 pendingTimer = 1f;
-            }
-        }
+            
+        
 
     }
 
